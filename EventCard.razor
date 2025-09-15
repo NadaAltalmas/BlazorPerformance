@@ -1,0 +1,28 @@
+@* EventCard.razor *@
+<div class="card mb-3" style="max-width: 400px;">
+    <div class="card-body">
+        <h5 class="card-title">@EventName</h5>
+        <h6 class="card-subtitle mb-2 text-muted">@EventDate.ToString("MMMM dd, yyyy")</h6>
+        <p class="card-text">
+            <strong>Location:</strong> @Location
+        </p>
+        @if (!string.IsNullOrEmpty(Description))
+        {
+            <p class="card-text">@Description</p>
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string EventName { get; set; } = string.Empty;
+
+    [Parameter]
+    public DateTime EventDate { get; set; }
+
+    [Parameter]
+    public string Location { get; set; } = string.Empty;
+
+    [Parameter]
+    public string? Description { get; set; }
+}

@@ -1,0 +1,61 @@
+@page "/register"
+@using System.ComponentModel.DataAnnotations
+
+<PageTitle>Register</PageTitle>
+
+<h1>Event Registration</h1>
+
+<EditForm Model="@registration" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
+        <InputText id="name" class="form-control" @bind-Value="registration.Name" />
+        <ValidationMessage For="@(() => registration.Name)" />
+    </div>
+
+    <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <InputText id="email" class="form-control" @bind-Value="registration.Email" />
+        <ValidationMessage For="@(() => registration.Email)" />
+    </div>
+
+    <div class="mb-3">
+        <label for="event" class="form-label">Event</label>
+        <InputText id="event" class="form-control" @bind-Value="registration.EventName" />
+        <ValidationMessage For="@(() => registration.EventName)" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Register</button>
+</EditForm>
+
+@if (success)
+{
+    <div class="alert alert-success mt-3">
+        Registration successful!
+    </div>
+}
+
+@code {
+    private RegistrationModel registration = new();
+    private bool success = false;
+
+    private void HandleValidSubmit()
+    {
+        success = true;
+        // Here you could add logic to save registration data
+    }
+
+    public class RegistrationModel
+    {
+        [Required]
+        public string? Name { get; set; }
+
+        [Required, EmailAddress]
+        public string? Email { get; set; }
+
+        [Required]
+        public string? EventName { get; set; }
+    }
+}
